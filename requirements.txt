@@ -1,0 +1,23 @@
+# Core Requirements
+PyQt6>=6.4.0
+PyQt6-Qt6>=6.4.0
+
+# Audio Processing
+SpeechRecognition>=3.10.0
+pyaudio>=0.2.11  # Required for microphone input
+pydub>=0.25.1    # Audio manipulation
+
+# AI/LLM Integration
+openai>=0.27.0   # For GPT integration
+# Alternative: transformers>=4.30.0  # For local Hugging Face models
+
+# Utilities
+numpy>=1.24.0
+python-dotenv>=1.0.0  # For environment variables
+
+# Optional for better performance
+webrtcvad>=2.0.10  # Voice Activity Detection
+# google-cloud-speech>=2.20.0  # For Google Cloud Speech (better accuracy)
+
+# Development
+pyinstaller>=5.10.0  # For creating executable
