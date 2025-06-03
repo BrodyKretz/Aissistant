@@ -5,6 +5,10 @@ from PyQt6.QtCore import QThread, pyqtSignal
 import openai
 import os
 from typing import Optional
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 class LLMThread(QThread):
     """Thread for LLM API calls"""
@@ -94,10 +98,9 @@ class LLMHandler:
         # Try to get API key from environment
         self.api_key = os.getenv("OPENAI_API_KEY")
         
-        # TODO: If no API key in environment, you'll need to set it manually
-        # For now, using a placeholder - YOU NEED TO REPLACE THIS
         if not self.api_key:
-            self.api_key = "YOUR_OPENAI_API_KEY_HERE"  # <-- REPLACE THIS
+            print("WARNING: OPENAI_API_KEY not found in environment variables.")
+            print("Please create a .env file with your API key.")
     
     def set_subject(self, subject: str):
         """Set the subject for context"""
@@ -105,9 +108,9 @@ class LLMHandler:
     
     def get_answer(self, question: str):
         """Get answer to a question"""
-        if not self.api_key or self.api_key == "YOUR_OPENAI_API_KEY_HERE":
+        if not self.api_key:
             if self.answer_ready:
-                self.answer_ready.emit("Error: OpenAI API key not configured. Please set your API key.")
+                self.answer_ready.emit("Error: OpenAI API key not configured. Please set your API key in the .env file.")
             return
         
         thread = LLMThread(question, self.subject, self.api_key)
@@ -117,7 +120,7 @@ class LLMHandler:
     
     def get_visualization(self, request: str):
         """Get visualization for a request"""
-        if not self.api_key or self.api_key == "YOUR_OPENAI_API_KEY_HERE":
+        if not self.api_key:
             if self.visualization_ready:
                 self.visualization_ready.emit("Error: OpenAI API key not configured.")
             return
